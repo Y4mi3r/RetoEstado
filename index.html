@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consolas de Videojuegos</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../reto-estado/styles.css"/>
+
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState } = React;
+      function Tarjeta (props) {
+          const [cantidad, setCantidad] = useState(0);
+
+          const incrementar = () => setCantidad(prev => prev + 1);
+          const decrementar = () => setCantidad(prev => (prev > 0 ? prev - 1 : 0));
+          const resetear = () => setCantidad(0);
+
+          return (
+            <div className="card-container">
+              <div className="card">
+                  <img src={props.imagen}/>
+                  <h2>{props.nombre}</h2>
+                  <p>{props.descripcion}</p>
+                  <div className="count">Cantidad: {cantidad}</div>
+                  <div className="counter">
+                      <button onClick={decrementar}>-</button>
+                      <button onClick={resetear}>Reset</button>
+                      <button onClick={incrementar}>+</button>
+                  </div>
+              </div>
+            </div>
+          );
+      }
+      const consolas = [
+        {
+          id: 1, 
+          nombre: 'Play Station 5', 
+          desc: 'Potencia increíble, gráficos impresionantes y una experiencia de juego inmersiva.', 
+          img: '../reto-estado/img/ps5.png' 
+        },
+        {
+          id: 2,
+          nombre: 'Nintendo Switch',
+          desc: 'Versátil, puedes jugar en casa o llevarla contigo. Juegos para toda la familia.',
+          img: '../reto-estado/img/nintendo.jpg'
+        },
+        { id: 3, 
+          nombre: 'Xbox Series X', 
+          desc: 'Rápida, con gráficos de alta calidad y excelente para juegos en línea.', 
+          img: '../reto-estado/img/seriexx.png' }
+      ]
+
+      function App (){
+        return (
+            <div className="parent-card">
+              {consolas.map((consola) =>
+                <Tarjeta key={consola.id} imagen={consola.img} nombre={consola.nombre} descripcion={consola.desc}/>
+              )}
+            </div>
+        );
+      }
+      ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
